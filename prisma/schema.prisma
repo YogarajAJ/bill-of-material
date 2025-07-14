@@ -4,12 +4,12 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL") // make sure this is defined in .env
+  url      = env("DATABASE_URL")
 }
 
 model User {
-  id       String  @id @default(uuid())
-  username String  @unique
+  id       String @id @default(uuid())
+  username String @unique
   password String
   role     Role
 }
@@ -25,36 +25,36 @@ model Product {
 }
 
 model Material {
-  id    String @id @default(uuid())
+  id    String    @id @default(uuid())
   name  String
-  code  String @unique
+  code  String    @unique
   type  String?
   items BOMItem[]
 }
 
 model Unit {
-  id        String @id @default(uuid())
+  id        String    @id @default(uuid())
   name      String
   shortName String
   items     BOMItem[]
 }
 
 model Supplier {
-  id      String @id @default(uuid())
+  id      String    @id @default(uuid())
   name    String
-  code    String @unique
+  code    String    @unique
   address String?
   items   BOMItem[]
 }
 
 model BOM {
-  id            String     @id @default(uuid())
+  id            String    @id @default(uuid())
   name          String
   effectiveFrom DateTime
   revision      Int
-  createdAt     DateTime   @default(now())
-  product       Product    @relation(fields: [productId], references: [id])
+  createdAt     DateTime  @default(now())
   productId     String
+  product       Product   @relation(fields: [productId], references: [id])
   items         BOMItem[]
 }
 
@@ -62,14 +62,14 @@ model BOMItem {
   id            String   @id @default(uuid())
   quantity      Float
   referenceCode String?
-  bom           BOM      @relation(fields: [bomId], references: [id])
   bomId         String
-  material      Material @relation(fields: [materialId], references: [id])
   materialId    String
-  unit          Unit     @relation(fields: [unitId], references: [id])
   unitId        String
-  supplier      Supplier @relation(fields: [supplierId], references: [id])
   supplierId    String
+  bom           BOM      @relation(fields: [bomId], references: [id])
+  material      Material @relation(fields: [materialId], references: [id])
+  supplier      Supplier @relation(fields: [supplierId], references: [id])
+  unit          Unit     @relation(fields: [unitId], references: [id])
 }
 
 enum Role {
