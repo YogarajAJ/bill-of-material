@@ -16,8 +16,6 @@ import { Roles } from 'src/auth/roles.decorator';
 
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('Admin')
-
-
 @Controller('supplier')
 export class SupplierController {
   constructor(private readonly supplierService: SupplierService) {}

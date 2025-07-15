@@ -6,11 +6,16 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 
 import { CreateMaterialDto, UpdateMaterialDto } from './material.dto';
 import { MaterialService } from './material.service';
-
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/auth/roles.decorator';
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles('Admin') 
 @Controller('material')
 export class MaterialController {
   constructor(private readonly materialService: MaterialService) {}

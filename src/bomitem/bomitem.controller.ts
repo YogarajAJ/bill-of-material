@@ -15,7 +15,6 @@ import { RolesGuard } from 'src/auth/roles.guard';
 import { Roles } from 'src/auth/roles.decorator';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('Designer')
-
 @Controller('bom-item')
 export class BomItemController {
   constructor(private readonly bomItemService: BomItemService) {}

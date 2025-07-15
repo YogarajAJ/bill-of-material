@@ -21,11 +21,20 @@ export class BomService {
   }
 
   findAll() {
-    return this.prisma.bOM.findMany();
+    return this.prisma.bOM.findMany({
+      include: {
+        product: { select: { id: true, name: true } },
+      },
+    });
   }
 
   findOne(id: string) {
-    return this.prisma.bOM.findUnique({ where: { id } });
+    return this.prisma.bOM.findUnique({
+      where: { id },
+      include: {
+        product: { select: { id: true, name: true } },
+      },
+    });
   }
 
   update(id: string, data: Prisma.BOMUpdateInput) {

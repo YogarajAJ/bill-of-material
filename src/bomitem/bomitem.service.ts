@@ -21,11 +21,26 @@ export class BomItemService {
   }
 
   findAll() {
-    return this.prisma.bOMItem.findMany();
+    return this.prisma.bOMItem.findMany({
+      include: {
+        bom: { select: { id: true, name: true } },
+        material: { select: { id: true, name: true } },
+        unit: { select: { id: true, name: true } },
+        supplier: { select: { id: true, name: true } },
+      },
+    });
   }
 
   findOne(id: string) {
-    return this.prisma.bOMItem.findUnique({ where: { id } });
+    return this.prisma.bOMItem.findUnique({
+      where: { id },
+      include: {
+        bom: { select: { id: true, name: true } },
+        material: { select: { id: true, name: true } },
+        unit: { select: { id: true, name: true } },
+        supplier: { select: { id: true, name: true } },
+      },
+    });
   }
 
   update(id: string, data: Prisma.BOMItemUpdateInput) {
