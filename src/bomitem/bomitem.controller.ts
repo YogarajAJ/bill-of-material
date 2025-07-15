@@ -1,16 +1,21 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
-import { Role } from '@prisma/client';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CreateBomItemDto, UpdateBomItemDto } from './bomitem.dto';
 import { BomItemService } from './bomitem.service';
-import { BOMItemDto } from './bomitem.dto';
 
-
-
-@Controller('users')
+@Controller('bom-item')
 export class BomItemController {
   constructor(private readonly bomItemService: BomItemService) {}
 
   @Post()
-  create(@Body() body: BOMItemDto) {
+  create(@Body() body: CreateBomItemDto) {
     return this.bomItemService.create(body);
   }
 
@@ -25,7 +30,7 @@ export class BomItemController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() body: any) {
+  update(@Param('id') id: string, @Body() body: UpdateBomItemDto) {
     return this.bomItemService.update(id, body);
   }
 

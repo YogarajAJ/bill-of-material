@@ -1,15 +1,29 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-import { BOMItemDto } from "src/bomitem/bomitem.dto";
-import { ProductDto } from "src/product/product.dto";
+export class CreateBomDto {
+  @ApiProperty({ example: 'BOM A' })
+  name: string;
 
-export class BOM {
-  id: string;
-  name       :   string;
+  @ApiProperty({ type: String, format: 'date-time', example: '2025-07-15T00:00:00.000Z' })
   effectiveFrom: Date;
-  revision     : number;
-  createdAt    : Date;  
-  productId     :string;
-  product       :ProductDto;  
-  items         :BOMItemDto[];
 
+  @ApiProperty({ example: 1 })
+  revision: number;
+
+  @ApiProperty({ example: 'product-uuid' })
+  productId: string;
+}
+
+export class UpdateBomDto {
+  @ApiPropertyOptional({ example: 'Updated BOM Name' })
+  name?: string;
+
+  @ApiPropertyOptional({ type: String, format: 'date-time', example: '2025-08-01T00:00:00.000Z' })
+  effectiveFrom?: Date;
+
+  @ApiPropertyOptional({ example: 2 })
+  revision?: number;
+
+  @ApiPropertyOptional({ example: 'new-product-uuid' })
+  productId?: string;
 }

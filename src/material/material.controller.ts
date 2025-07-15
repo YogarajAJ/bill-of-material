@@ -1,17 +1,22 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
-import { Role } from '@prisma/client';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 
+import { CreateMaterialDto, UpdateMaterialDto } from './material.dto';
 import { MaterialService } from './material.service';
-import { MaterialDto } from './material.dto';
 
-
-
-@Controller('users')
+@Controller('material')
 export class MaterialController {
   constructor(private readonly materialService: MaterialService) {}
 
   @Post()
-  create(@Body() body: MaterialDto) {
+  create(@Body() body: CreateMaterialDto) {
     return this.materialService.create(body);
   }
 
@@ -26,7 +31,7 @@ export class MaterialController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() body: any) {
+  update(@Param('id') id: string, @Body() body: UpdateMaterialDto) {
     return this.materialService.update(id, body);
   }
 

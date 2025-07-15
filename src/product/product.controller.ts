@@ -1,14 +1,21 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
-import { Role } from '@prisma/client';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CreateProductDto, UpdateProductDto } from './product.dto';
 import { ProductService } from './product.service';
-import { ProductDto } from './product.dto';
 
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  create(@Body() body:  ProductDto) {
+  create(@Body() body: CreateProductDto) {
     return this.productService.create(body);
   }
 
@@ -23,7 +30,7 @@ export class ProductController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() body: any) {
+  update(@Param('id') id: string, @Body() body: UpdateProductDto) {
     return this.productService.update(id, body);
   }
 

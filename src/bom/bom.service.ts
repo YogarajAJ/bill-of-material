@@ -1,13 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
+import { CreateBomDto } from './bom.dto';
 
 @Injectable()
-export class BomService{
+export class BomService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: Prisma.BOMCreateInput) {
-    return this.prisma.bOM.create({ data });
+  async create(dto: CreateBomDto) {
+    return this.prisma.bOM.create({
+      data: {
+        name: dto.name,
+        effectiveFrom: dto.effectiveFrom,
+        revision: dto.revision,
+        product: {
+          connect: { id: dto.productId },
+        },
+      },
+    });
   }
 
   findAll() {

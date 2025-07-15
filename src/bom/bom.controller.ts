@@ -1,15 +1,21 @@
-import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
-import { Role } from '@prisma/client';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { BomService } from './bom.service';
-import { BomDto } from './bom.dto';
+import { CreateBomDto, UpdateBomDto } from './bom.dto';
 
-
-@Controller('users')
+@Controller('bom')
 export class BomController {
   constructor(private readonly bomService: BomService) {}
 
   @Post()
-  create(@Body() body: BomDto) {
+  create(@Body() body: CreateBomDto) {
     return this.bomService.create(body);
   }
 
@@ -24,7 +30,7 @@ export class BomController {
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() body: any) {
+  update(@Param('id') id: string, @Body() body: UpdateBomDto) {
     return this.bomService.update(id, body);
   }
 

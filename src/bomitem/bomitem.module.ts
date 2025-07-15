@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { BomitemService } from './bomitem.service';
-import { BomitemController } from './bomitem.controller';
+import { BomItemService } from './bomitem.service';
+import { BomItemController } from './bomitem.controller';
 
 @Module({
-  providers: [BomitemService],
-  controllers: [BomitemController]
+  providers: [BomItemService],
+  controllers: [BomItemController],
 })
 export class BomitemModule {}

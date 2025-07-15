@@ -1,13 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateBomItemDto } from './bomitem.dto';
 
 @Injectable()
-export class BomItemService{
+export class BomItemService {
   constructor(private prisma: PrismaService) {}
 
-  create(data: Prisma.BOMItemCreateInput) {
-    return this.prisma.bOMItem.create({ data });
+  async create(dto: CreateBomItemDto) {
+    return this.prisma.bOMItem.create({
+      data: {
+        quantity: dto.quantity,
+        referenceCode: dto.referenceCode,
+        bom: { connect: { id: dto.bomId } },
+        material: { connect: { id: dto.materialId } },
+        unit: { connect: { id: dto.unitId } },
+        supplier: { connect: { id: dto.supplierId } },
+      },
+    });
   }
 
   findAll() {
@@ -18,7 +28,7 @@ export class BomItemService{
     return this.prisma.bOMItem.findUnique({ where: { id } });
   }
 
-  update(id: string, data: Prisma.BOMUpdateInput) {
+  update(id: string, data: Prisma.BOMItemUpdateInput) {
     return this.prisma.bOMItem.update({ where: { id }, data });
   }
 
