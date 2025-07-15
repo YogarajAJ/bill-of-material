@@ -1,18 +1,26 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
+import { BomModule } from './bom/bom.module';
+import { BomitemModule } from './bomitem/bomitem.module';
+import { MaterialModule } from './material/material.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { UsersModule } from './users/users.module';
-import { ProductsModule } from './products/products.module';
-import { MaterialsModule } from './materials/materials.module';
-import { UnitsModule } from './units/units.module';
-import { SuppliersModule } from './suppliers/suppliers.module';
-import { BomsModule } from './boms/boms.module';
-import { BomItemsModule } from './bom-items/bom-items.module';
+import { ProductModule } from './product/product.module';
+import { SupplierModule } from './supplier/supplier.module';
+import { UnitModule } from './unit/unit.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [AuthModule, PrismaModule, UsersModule, ProductsModule, MaterialsModule, UnitsModule, SuppliersModule, BomsModule, BomItemsModule],
+  imports: [
+    PrismaModule,
+    UserModule,
+    ProductModule,
+    BomModule,
+    BomitemModule,
+    MaterialModule,
+    UnitModule,
+    SupplierModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
