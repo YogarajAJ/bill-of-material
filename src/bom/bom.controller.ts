@@ -14,7 +14,7 @@ import { Roles } from 'src/auth/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
 @UseGuards(JwtAuthGuard, RolesGuard)
-@Roles('Designer') // or 'Designer'
+@Roles('Designer')
 @Controller('bom')
 export class BomController {
   constructor(private readonly bomService: BomService) {}

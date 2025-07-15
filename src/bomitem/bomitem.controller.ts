@@ -6,9 +6,15 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateBomItemDto, UpdateBomItemDto } from './bomitem.dto';
 import { BomItemService } from './bomitem.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/auth/roles.decorator';
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles('Designer')
 
 @Controller('bom-item')
 export class BomItemController {
