@@ -9,6 +9,8 @@ import { ProductModule } from './product/product.module';
 import { SupplierModule } from './supplier/supplier.module';
 import { UnitModule } from './unit/unit.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -20,6 +22,10 @@ import { UserModule } from './user/user.module';
     MaterialModule,
     UnitModule,
     SupplierModule,
+    AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true, // so you don't have to import it everywhere
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
