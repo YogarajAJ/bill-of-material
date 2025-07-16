@@ -44,4 +44,17 @@ export class BomService {
   remove(id: string) {
     return this.prisma.bOM.delete({ where: { id } });
   }
+
+  async findByProduct(productId: string) {
+    return this.prisma.bOM.findMany({
+      where: { productId },
+      include: {
+        product: { select: { id: true, name: true } },
+      },
+      orderBy: {
+        revision: 'desc', // Optional: show latest revision first
+      },
+    });
+  }
+  
 }

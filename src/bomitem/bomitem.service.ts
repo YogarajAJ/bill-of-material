@@ -50,4 +50,15 @@ export class BomItemService {
   remove(id: string) {
     return this.prisma.bOMItem.delete({ where: { id } });
   }
+  async findByBomId(bomId: string) {
+    return this.prisma.bOMItem.findMany({
+      where: { bomId },
+      include: {
+        material: { select: { id: true, name: true } },
+        unit: { select: { id: true, name: true } },
+        supplier: { select: { id: true, name: true } },
+      },
+    });
+  }
+  
 }

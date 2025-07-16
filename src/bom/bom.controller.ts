@@ -13,6 +13,7 @@ import { CreateBomDto, UpdateBomDto } from './bom.dto';
 import { Roles } from 'src/auth/roles.decorator';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { RolesGuard } from 'src/auth/roles.guard';
+import { ApiOperation, ApiParam } from '@nestjs/swagger';
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles('Designer')
 @Controller('bom')
@@ -42,5 +43,12 @@ export class BomController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.bomService.remove(id);
+  }
+
+  @ApiOperation({ summary: 'Get all BOMs by Product ID' })
+  @ApiParam({ name: 'productId', type: String })
+  @Get('by-product/:productId')
+  findByProduct(@Param('productId') productId: string) {
+    return this.bomService.findByProduct(productId);
   }
 }

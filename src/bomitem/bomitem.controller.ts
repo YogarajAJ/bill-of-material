@@ -43,4 +43,8 @@ export class BomItemController {
   remove(@Param('id') id: string) {
     return this.bomItemService.remove(id);
   }
+  @Get('by-bom/:bomId')
+  findByBomId(@Param('bomId') bomId: string) {
+    return this.bomItemService.findByBomId(bomId);
+  }
 }
